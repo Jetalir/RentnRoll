@@ -1,0 +1,22 @@
+﻿@page
+@model RentnRoll.Pages.Account.LoginModel
+@{
+}
+
+<h1 class="text-center">Logga in</h1>
+
+
+<form method="post">
+    <label>E-post: </label>
+    <input type="email" asp-for="Email" required />
+
+    <label>Lösenord</label>
+    <input type="password" asp-for="Password" required />
+
+    <button type="submit">Logga in</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color: red">@Model.ErrorMessage</p>
+}

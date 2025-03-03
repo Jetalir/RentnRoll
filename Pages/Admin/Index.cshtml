@@ -1,0 +1,35 @@
+﻿@page
+@model RentnRoll.Pages.Admin.IndexModel
+@{
+}
+
+
+<h2>Add a new vehicle</h2>
+
+<form method="post">
+    <label>Brand:</label>
+    <input type="text" asp-for="Vehicle.Brand" required />
+
+    <label>Model:</label>
+    <input type="text" asp-for="Vehicle.Model" required />
+
+    <label>Type:</label>
+    <input type="text" asp-for="Vehicle.Type" required />
+
+    <label>Year:</label>
+    <input type="number" asp-for="Vehicle.Year" required />
+
+    <label>Pris per dag:</label>
+    <input type="number" asp-for="Vehicle.PricePerDay" required />
+
+    <label>Transmission:</label>
+    <input type="text" asp-for="Vehicle.TransmissionType" required />
+
+    <label>Beskrivning:</label>
+    <textarea asp-for="Vehicle.Description"></textarea>
+
+    <label>Bild URL:</label>
+    <input type="text" asp-for="Vehicle.ImageURL" />
+
+    <button type="submit">Confirm vehicle</button>
+</form>
