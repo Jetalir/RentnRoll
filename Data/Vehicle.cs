@@ -16,7 +16,7 @@ namespace RentnRoll.Data
         public decimal PricePerDay { get; set; }
         public string TransmissionType { get; set; }
         public bool Availibility { get; set; } = true;
-        public string Description { get; set; }
-        public string ImageURL { get; set; }
+        public string? Description { get; set; }
+        public string? ImageURL { get; set; }
     }
 }
