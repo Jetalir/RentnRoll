@@ -11,24 +11,49 @@ namespace RentnRoll.Pages.Admin
         private readonly AppDbContext _context;
 
         [BindProperty]
-        public Vehicle Vehicle { get; set; }
-
+        public CreateVehicleDTO createVehicleDTO { get; set; }
         public IndexModel(AppDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Vehicles.Add(Vehicle);
-            _context.SaveChanges();
+            Vehicle vehicle = new Vehicle
+            {
+                Type = createVehicleDTO.Type,
+                Brand = createVehicleDTO.Brand,
+                Model = createVehicleDTO.Model,
+                Year = createVehicleDTO.Year,
+                PricePerDay = createVehicleDTO.PricePerDay,
+                TransmissionType = createVehicleDTO.TransmissionType,
+                Description = createVehicleDTO.Description,
+                ImageURL = createVehicleDTO.ImageURL
+            };
+
+            await _context.Vehicles.AddAsync(vehicle);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
+    }
+
+    public class CreateVehicleDTO
+    {
+        public string Type { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public int Year { get; set; }
+        public decimal PricePerDay { get; set; }
+        public string TransmissionType { get; set; }
+        public string? Description { get; set; }
+        public string? ImageURL { get; set; }
+
     }
 }
