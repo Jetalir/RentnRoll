@@ -16,8 +16,8 @@
 
 				@if (User.IsInRole("Admin"))
 				{
-					<button asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID">Edit</button>
-					<button asp-page="/admin/Delete">Delete</button>
+					<a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
+					<a asp-page="/admin/Delete" class="btn btn-primary">Delete</a>
 				}
 			</li>
 		}
