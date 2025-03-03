@@ -8,28 +8,66 @@
 
 <form method="post">
     <label>Brand:</label>
-    <input type="text" asp-for="Vehicle.Brand" required />
+@*     <input type="text" asp-for="createVehicleDTO.Brand" required /> *@ 
+    <select asp-for="createVehicleDTO.Brand" required>
+        <option value="Volvo">Volvo</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Honda">Honda</option>
+        <option value="Ford">Ford</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="BMW">BMW</option>
+        <option value="Mercedes-Benz">Mercedes-Benz</option>
+        <option value="Audi">Audi</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Hyundai">Hyundai</option>
+        <option value="Kia">Kia</option>
+        <option value="Tesla">Tesla</option>
+        <option value="Porsche">Porsche</option>
+        <option value="Lexus">Lexus</option>
+        <option value="Subaru">Subaru</option>
+        <option value="Mazda">Mazda</option>
+        <option value="Jeep">Jeep</option>
+        <option value="Land Rover">Land Rover</option>
+        <option value="Cadillac">Cadillac</option>
+    </select>
 
     <label>Model:</label>
-    <input type="text" asp-for="Vehicle.Model" required />
+    <input type="text" asp-for="createVehicleDTO.Model" required />
 
     <label>Type:</label>
-    <input type="text" asp-for="Vehicle.Type" required />
-
-    <label>Year:</label>
-    <input type="number" asp-for="Vehicle.Year" required />
-
-    <label>Pris per dag:</label>
-    <input type="number" asp-for="Vehicle.PricePerDay" required />
+    @* <input type="text" asp-for="createVehicleDTO.Type" required /> *@
+    <select asp-for="createVehicleDTO.Type" required>
+        <option value="Sedan">Sedan</option>
+        <option value="Crossover">Crossover</option>
+        <option value="Combi">Combi</option>
+        <option value="SUV">SUV</option>
+        <option value="Pickup">Pickup</option>
+        <option value="Hatchback">Hatchback</option>
+        <option value="Cabriolet">Cabriolet</option>
+        <option value="Sport">Sport</option>
+        <option value="Van">Van</option>
+        <option value="Micro">Micro</option>
+    </select>
 
     <label>Transmission:</label>
-    <input type="text" asp-for="Vehicle.TransmissionType" required />
+    @*     <input type="text" asp-for="createVehicleDTO.TransmissionType" required />  *@    
+    <select asp-for="createVehicleDTO.TransmissionType" required>
+        <option value="Manual">Manual</option>
+        <option value="Automatic">Automatic</option>
+    </select>
 
-    <label>Beskrivning:</label>
-    <textarea asp-for="Vehicle.Description"></textarea>
+    <label>Year:</label>
+    <input type="number" asp-for="createVehicleDTO.Year" required />
+
+    <label>Price per day:</label>
+    <input type="number" asp-for="createVehicleDTO.PricePerDay" required />
+
+    <label>Description:</label>
+    <textarea asp-for="createVehicleDTO.Description"></textarea>
 
     <label>Bild URL:</label>
-    <input type="text" asp-for="Vehicle.ImageURL" />
+    <input type="text" asp-for="createVehicleDTO.ImageURL" />
 
     <button type="submit">Confirm vehicle</button>
 </form>
