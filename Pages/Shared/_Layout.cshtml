@@ -26,6 +26,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/admin/Index">Admin Page</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                     <a asp-page="/Account/Logout">Logga Ut</a>
@@ -34,6 +40,7 @@
                     <a asp-page="/Account/Login"> Logga In</a>
                     <a asp-page="/Account/Register">Registrera</a>
                 }
+                
 
 
             </div>
