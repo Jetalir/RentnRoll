@@ -12,7 +12,7 @@ using RentnRoll.Data;
 namespace RentnRoll.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250303141459_init")]
+    [Migration("20250303191337_init")]
     partial class init
     {
         /// <inheritdoc />
