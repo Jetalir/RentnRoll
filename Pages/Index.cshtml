@@ -14,12 +14,16 @@
 			<li>
 				<a asp-page="/Booking" asp-route-id="@vehicle.VehicleID">@vehicle.Brand @vehicle.Model</a>
 
-				@if (User.IsInRole("Admin"))
-				{
+				
+				
 					<button asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID">Edit</button>
-					<button asp-page="/admin/Delete">Delete</button>
-				}
+					<form method="post" asp-page-handler="Delete" asp-route-id="@vehicle.VehicleID">
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				
 			</li>
 		}
 	</ul>
 </form>
+
+

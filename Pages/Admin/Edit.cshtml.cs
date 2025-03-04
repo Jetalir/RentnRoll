@@ -23,6 +23,8 @@ namespace RentnRoll.Pages.Admin
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Vehicle = await _context.Vehicles.FindAsync(id);
+            
+
 
             if (Vehicle == null)
             {
@@ -60,6 +62,15 @@ namespace RentnRoll.Pages.Admin
             return RedirectToPage("Index");
         }
 
+        public async Task<IActionResult> OnPostRemoveVehicleAsync(int id)
+		{
+            Vehicle = await _context.Vehicles.FindAsync(id);
+            
+
+			 _context.Vehicles.Remove(Vehicle);
+			 await _context.SaveChangesAsync(); 
+             return RedirectToPage();
+		}
         public void Homepage()
 		{
 			Response.Redirect("/");

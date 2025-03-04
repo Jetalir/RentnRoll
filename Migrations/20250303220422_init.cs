@@ -63,8 +63,8 @@ namespace RentnRoll.Migrations
                     PricePerDay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TransmissionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Availibility = table.Column<bool>(type: "bit", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
