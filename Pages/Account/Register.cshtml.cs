@@ -39,7 +39,7 @@ namespace RentnRoll.Pages.Account
             if (result.Succeeded)
             {
                 // Nya användaren får rollen "Admin"
-                await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, "Admin");
                 return RedirectToPage("/Account/Login");
             }
 
