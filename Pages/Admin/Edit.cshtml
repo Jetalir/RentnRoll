@@ -5,7 +5,6 @@
 
 <h1>Edit vehicles</h1>
 
-@* lägg till i read på bilarna <a asp-page="Admin/Edit" asp-route-id="@vehicle.CarID">Redigera</a> *@
 <form method="post">
     <input type="hidden" asp-for="Vehicle.VehicleID" />
 
@@ -34,5 +33,5 @@
     <input type="text" asp-for="Vehicle.ImageURL" />
 
     <button type="submit">Save changes</button>
-    <a asp-page="Index">Return Home</a>
+    <a href="/Index">Return Home</a>
 </form>
