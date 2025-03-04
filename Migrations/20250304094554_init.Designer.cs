@@ -12,7 +12,7 @@ using RentnRoll.Data;
 namespace RentnRoll.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250303202314_init")]
+    [Migration("20250304094554_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -283,11 +283,9 @@ namespace RentnRoll.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageURL")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
