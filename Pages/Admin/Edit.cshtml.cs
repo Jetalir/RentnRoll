@@ -56,9 +56,15 @@ namespace RentnRoll.Pages.Admin
                     throw;
                 }
             }
-
+            
             return RedirectToPage("Index");
         }
-    }
+
+        public void Homepage()
+		{
+			Response.Redirect("/");
+		}
+
+	}
 
 }
