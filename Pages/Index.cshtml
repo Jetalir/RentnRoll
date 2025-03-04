@@ -6,3 +6,23 @@
 
 
 <h1>Hej, Välkommen till RentnRoll</h1>
+
+<form method="get" asp-page="/Index">
+	<ul>
+		@foreach (var vehicle in Model.Vehicle)
+		{
+			<li>
+				<a asp-page="/Booking" asp-route-id="@vehicle.VehicleID">@vehicle.Brand @vehicle.Model</a>
+
+				@if (User.IsInRole("Admin"))
+				{
+					<a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
+         			
+					<a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger">Delete</a>
+				}
+			</li>
+		}
+	</ul>
+</form>
+
+

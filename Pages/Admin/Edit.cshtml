@@ -3,4 +3,36 @@
 @{
 }
 
-<h1>Here admin Edit vehicless</h1>
+
+<h1>Edit vehicles</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Vehicle.VehicleID" />
+
+    <label>Brand:</label>
+    <input type="text" asp-for="Vehicle.Brand" required />
+
+    <label>Modell:</label>
+    <input type="text" asp-for="Vehicle.Model" required />
+
+    <label>Type:</label>
+    <input type="text" asp-for="Vehicle.Type" required />
+
+    <label>Year:</label>
+    <input type="number" asp-for="Vehicle.Year" required />
+
+    <label>Price per day:</label>
+    <input type="number" asp-for="Vehicle.PricePerDay" required />
+
+    <label>Transmission:</label>
+    <input type="text" asp-for="Vehicle.TransmissionType" required />
+
+    <label>Desciption:</label>
+    <textarea asp-for="Vehicle.Description"></textarea>
+
+    <label>IMG-URL:</label>
+    <input type="text" asp-for="Vehicle.ImageURL" />
+
+    <button type="submit">Save changes</button>
+    <a href="/Index">Return Home</a>
+</form>
