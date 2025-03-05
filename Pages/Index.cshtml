@@ -17,9 +17,12 @@
 				@if (User.IsInRole("Admin"))
 				{
 					<a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
-					<a asp-page="/admin/Delete" class="btn btn-primary">Delete</a>
+         			
+					<a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger">Delete</a>
 				}
 			</li>
 		}
 	</ul>
 </form>
+
+
