@@ -3,13 +3,61 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<header class="bg-dark text-white py-5">
+<header class="bg-dark text-white py-3">
 	<div class="container text-center">
         <h1 class="display-4">Welcome to Rent & Roll</h1>
         <p class="lead">Walk in, rent and roll out.</p>
         <p>We offer a wide range of vehicles for rent. Choose from our selection below.</p>
     </div>
 </header>
+
+<div class="container mt-4 mb-4">
+    <form method="get" class="row g-3">
+        <!-- Filter by Vehicle Brand -->
+        <div class="col-md-4">
+            <label for="filterBrand" class="form-label">Filter by Brand</label>
+            <select id="filterBrand" name="FilterBrand" class="form-select" onchange="this.form.submit()">
+                <option value="" selected="@(string.IsNullOrEmpty(Model.FilterBrand) ? "selected" : null)">All Brands</option>
+                @foreach (var brand in Model.VehicleBrands)
+                {
+                    <option value="@brand" selected="@(Model.FilterBrand == brand ? "selected" : null)">@brand</option>
+                }
+            </select>
+        </div>
+        <!-- Filter by Vehicle Type -->
+        <div class="col-md-4">
+            <label for="filterType" class="form-label">Filter by Type</label>
+            <select id="filterType" name="FilterType" class="form-select" onchange="this.form.submit()">
+                <option value="" selected="@(string.IsNullOrEmpty(Model.FilterType) ? "selected" : null)">All Types</option>
+                @foreach (var type in Model.VehicleTypes)
+                {
+                    <option value="@type" selected="@(Model.FilterType == type ? "selected" : null)">@type</option>
+                }
+            </select>
+        </div>
+
+
+
+        <!-- Sort by Criteria -->
+        <div class="col-md-4">
+            <label for="sortBy" class="form-label">Sort By</label>
+            <select id="sortBy" name="SortBy" class="form-select" onchange="this.form.submit()">
+                <option value="price" selected="@(Model.SortBy == "price" ? "selected" : null)">Price</option>
+                <option value="year" selected="@(Model.SortBy == "year" ? "selected" : null)">Year</option>
+            </select>
+        </div>
+
+        <!-- Sort Order -->
+        <div class="col-md-4">
+            <label for="sortOrder" class="form-label">Order</label>
+            <select id="sortOrder" name="SortOrder" class="form-select" onchange="this.form.submit()">
+                <option value="asc" selected="@(Model.SortOrder == "asc" ? "selected" : null)">Ascending</option>
+                <option value="desc" selected="@(Model.SortOrder == "desc" ? "selected" : null)">Descending</option>
+            </select>
+        </div>
+    </form>
+</div>
+
 
 <body class="container">
     <div class="row">
