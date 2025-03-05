@@ -40,7 +40,7 @@ namespace RentnRoll.Pages.Admin
             await _context.Vehicles.AddAsync(vehicle);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Index");
+            return RedirectToPage("/Index");
         }
     }
 
