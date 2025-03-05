@@ -3,26 +3,40 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<header class="bg-dark text-white py-5">
+	<div class="container text-center">
+        <h1 class="display-4">Welcome to Rent & Roll</h1>
+        <p class="lead">Walk in, rent and roll out.</p>
+        <p>We offer a wide range of vehicles for rent. Choose from our selection below.</p>
+    </div>
+</header>
 
-
-<h1>Hej, Välkommen till RentnRoll</h1>
-
-<form method="get" asp-page="/Index">
-	<ul>
-		@foreach (var vehicle in Model.Vehicle)
-		{
-			<li>
-				<a asp-page="/Booking" asp-route-id="@vehicle.VehicleID">@vehicle.Brand @vehicle.Model</a>
-
-				@if (User.IsInRole("Admin"))
-				{
-					<a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
-         			
-					<a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger">Delete</a>
-				}
-			</li>
-		}
-	</ul>
-</form>
-
-
+<body class="container">
+    <div class="row">
+        @foreach (var vehicle in Model.Vehicle)
+        {
+            <article class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <img src="@vehicle.ImageURL" class="card-img-top" alt="@vehicle.Brand @vehicle.Model">
+                    <div class="card-body">
+                        <h5 class="card-title">@vehicle.Brand @vehicle.Model</h5>
+                        <p class="card-text">
+                            <strong>Type:</strong> @vehicle.Type <br>
+                            <strong>Year:</strong> @vehicle.Year <br>
+                            <strong>Transmission:</strong> @vehicle.TransmissionType <br>
+                            <strong>Price/day:</strong> @vehicle.PricePerDay SEK
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="/Booking" asp-route-id="@vehicle.VehicleID" class="btn btn-success">Book</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
+                                <a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger">Delete</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+</body>
