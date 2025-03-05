@@ -18,11 +18,13 @@ namespace RentnRoll.Pages.Admin
         }
 
         [BindProperty]
-        public Vehicle Vehicle { get; set; }
 
+        public Vehicle Vehicle { get; set; }
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Vehicle = await _context.Vehicles.FindAsync(id);
+            
+
 
             if (Vehicle == null)
             {
@@ -60,6 +62,7 @@ namespace RentnRoll.Pages.Admin
             return RedirectToPage("Index");
         }
 
+        
         public void Homepage()
 		{
 			Response.Redirect("/");
