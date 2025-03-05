@@ -7,12 +7,10 @@ namespace RentnRoll.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RegisterModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public RegisterModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         [BindProperty]
