@@ -7,18 +7,19 @@
         <h2>Account</h2>
     </div>
 </header>
-<body>
-    <br />
+<body class="bg-light">
+    <div class="container mt-4 p-4 border rounded bg-white">
     <h3 class="text-center mb-4">Register a new user</h3>
-    <form method="post">
-        <label>E-post: </label>
-        <input type="email" asp-for="Email" required />
+        <form method="post">
+            <label>E-post: </label>
+            <input type="email" asp-for="Email" required />
 
-        <label>Password: </label>
-        <input type="password" asp-for="Password" required />
+            <label>Password: </label>
+            <input type="password" asp-for="Password" required />
 
-        <button type="submit">Register</button>
-    </form>
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </body>
 
 
