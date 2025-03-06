@@ -18,13 +18,14 @@ namespace RentnRoll.Pages
 
 		public List<Vehicle> Cart { get; set; } = new();
 		public Vehicle Vehicle { get; set; }
-		public async Task<IActionResult> OnGetAsync(int id)
+
+        public async Task<IActionResult> OnGetAsync(int id)
 		{
 			Vehicle = await _context.Vehicles.FindAsync(id);
 			if (Vehicle == null)
 			{
-				return NotFound();
-			}
+                return Page();
+            }
 			else
 			{
 				Cart.Add(Vehicle);
