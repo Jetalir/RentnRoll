@@ -4,11 +4,53 @@
 }
 <header class="bg-dark text-white py-3">
 	<div class="container text-center">
-		<h1 class="display-4">Booking</h1>
-		<p class="lead">Summary of your order</p>
+		<h2 class="display-4">Booking</h2>
 	</div>
 </header>
 <body>
+    <p class="text-center">Your order</p>
+	@if (Model.Cart.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Year</th>
+                    <th>Price per day</th>
+                    <th> </th>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var vehicle in Model.Cart)
+                {
+                    <tr>
+                        <td>@vehicle.Brand</td>
+                        <td>@vehicle.Model</td>
+                        <td>@vehicle.Type</td>
+                        <td>@vehicle.Year</td>
+                        <td>@vehicle.PricePerDay SEK</td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="vehicleId" value="@vehicle.VehicleID" />
+                                <button type="submit" asp-page-handler="RemoveFromCart" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
+        <h4>Total: @Model.Cart.Sum(v => v.PricePerDay) SEK/day</h4>
+
+        <form method="post">
+            <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        </form>
+    }
+    else
+    {
+        <p>No vehicles added to your booking yet.</p>
+    }
 </body>
