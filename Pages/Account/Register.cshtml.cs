@@ -36,12 +36,13 @@ namespace RentnRoll.Pages.Account
 
             if (result.Succeeded)
             {
-                // Nya användaren får rollen "Admin"
-                await _userManager.AddToRoleAsync(user, "Admin");
+                // Nya användaren får rollen "User"
+                await _userManager.AddToRoleAsync(user, "User");
+                TempData["SuccessMessage"] = "Your account has been registered! You can now log in.";
                 return RedirectToPage("/Account/Login");
             }
 
-            ErrorMessage = "Registreringen misslyckades. Vänligen försök igen!";
+            ErrorMessage = "Registration failed. Please try again!";
             return Page();
         }
     }

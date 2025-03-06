@@ -75,11 +75,11 @@
                             <strong>Price/day:</strong> @vehicle.PricePerDay SEK
                         </p>
                         <div class="d-flex justify-content-between">
-                            <a asp-page="/Booking" asp-route-id="@vehicle.VehicleID" class="btn btn-success">Book</a>
+                            <a asp-page="/Booking" asp-route-id="@vehicle.VehicleID" class="btn btn-success w-100 mx-2">Book</a>
                             @if (User.IsInRole("Admin"))
                             {
-                                <a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary">Edit</a>
-                                <a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger">Delete</a>
+                                <a asp-page="/admin/edit" asp-route-id="@vehicle.VehicleID" class="btn btn-primary w-100 mx-2">Edit</a>
+                                <a asp-page="/admin/delete" asp-route-id="@vehicle.VehicleID" class="btn btn-danger w-100 mx-2">Delete</a>
                             }
                         </div>
                     </div>
