@@ -2,19 +2,24 @@
 @model RentnRoll.Pages.Account.RegisterModel
 @{
 }
+<header class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <h2>Account</h2>
+    </div>
+</header>
+<body>
+    <br />
+    <h3 class="text-center mb-4">Register a new user</h3>
+    <form method="post">
+        <label>E-post: </label>
+        <input type="email" asp-for="Email" required />
 
+        <label>Password: </label>
+        <input type="password" asp-for="Password" required />
 
-<h1>Registera ny användare</h1>
-
-<form method="post">
-    <label>E-post: </label>
-    <input type="email" asp-for="Email" required />
-    
-    <label>Lösenord: </label>
-    <input type="password" asp-for="Password" required />
-
-    <button type="submit">Registrera</button>
-</form>
+        <button type="submit">Register</button>
+    </form>
+</body>
 
 
 @if (!string .IsNullOrEmpty(Model.ErrorMessage))

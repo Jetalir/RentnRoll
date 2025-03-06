@@ -12,11 +12,11 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-
+                <a class="navbar-brand" asp-page="/Index">
+                    <img src="~/images/rent-roll-logo.png" alt="RentnRoll" height="50">
+                </a>
                 @if (User.Identity.IsAuthenticated)
                 {
-
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">Rent&Roll</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -26,19 +26,22 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Booking">Booking</a>
+                            </li>
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/admin/Index">Admin Page</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/admin/Index">Add Vehicle</a>
                                 </li>
                             }
                         </ul>
                     </div>
-                    <a asp-page="/Account/Logout">Logga Ut</a>
+                    <a asp-page="/Account/Logout">Logout</a>
                 }
                 else {
-                    <a asp-page="/Account/Login"> Logga In</a>
-                    <a asp-page="/Account/Register">Registrera</a>
+                    <a asp-page="/Account/Login"> Login</a>
+                    <a asp-page="/Account/Register">Register</a>
                 }
                 
 
@@ -54,7 +57,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Identity - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - Rent & Roll - All rights reserved.
         </div>
     </footer>
 

@@ -3,18 +3,30 @@
 @{
 }
 
-<h1 class="text-center">Logga in</h1>
+<header class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <h2>Account</h2>
+    </div>
+</header>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<body>
+    <br />
+    <h3 class="text-center mb-4">Login</h3>
+    <form method="post">
+        <label>Email: </label>
+        <input type="email" asp-for="Email" required />
 
+        <label>Password</label>
+        <input type="password" asp-for="Password" required />
 
-<form method="post">
-    <label>E-post: </label>
-    <input type="email" asp-for="Email" required />
-
-    <label>Lösenord</label>
-    <input type="password" asp-for="Password" required />
-
-    <button type="submit">Logga in</button>
-</form>
+        <button type="submit">Login</button>
+    </form>
+</body>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {

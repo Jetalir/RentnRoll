@@ -32,10 +32,11 @@ var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityR
 RoleSeeder.SeedRolesAsync(roleManager).Wait();
 using (var scopeTwo = app.Services.CreateScope())
 {
-	var loadData = scopeTwo.ServiceProvider;
-	await RoleSeeder.SeedVehiclesAsync(loadData);
-	await RoleSeeder.SeedUsersAsync(loadData);
+    var loadData = scopeTwo.ServiceProvider;
+    await RoleSeeder.SeedVehiclesAsync(loadData);
+    await RoleSeeder.SeedUsersAsync(loadData);
 }
+
 
 
 // Configure the HTTP request pipeline.
