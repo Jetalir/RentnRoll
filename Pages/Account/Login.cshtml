@@ -15,21 +15,26 @@
     </div>
 }
 <body class="bg-light">
-    <div class="container mt-4 p-4 border rounded bg-white">
+    <div class="container mt-5 p-4 border rounded bg-white shadow-sm" style="max-width: 400px;">
         <h3 class="text-center mb-4">Login</h3>
+
         <form method="post">
-            <label>Email: </label>
-            <input type="email" asp-for="Email" required />
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" asp-for="Email" class="form-control" required />
+            </div>
 
-            <label>Password</label>
-            <input type="password" asp-for="Password" required />
+            <div class="mb-3">
+                <label class="form-label">Password:</label>
+                <input type="password" asp-for="Password" class="form-control" required />
+            </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <p class="text-danger text-center mt-3">@Model.ErrorMessage</p>
+        }
     </div>
 </body>
-
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <p style="color: red">@Model.ErrorMessage</p>
-}
