@@ -26,6 +26,6 @@ namespace RentnRoll.Data
         public string Status { get; set; } = "Pending"; // Pending, Confirmed, Canceled
         public DateTime BookingDate { get; set; } = DateTime.Now;
 
-        
+         
     }
 }
