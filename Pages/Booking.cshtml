@@ -27,6 +27,19 @@
                 @foreach (var vehicle in Model.Cart)
                 {
                     <tr>
+                        <td colspan="2" width="300px" height="300px">
+                            <img src="@vehicle.ImageURL" alt="@vehicle.Brand @vehicle.Model" class="img-fluid" />
+                        </td>
+                        <td colspan="2">
+                            <label>Pickup date</label>
+                            <input type="date" class="form-control"/>
+                        </td>
+                        <td colspan="1">
+                            <label>Return date</label>
+                            <input type="date" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>@vehicle.Brand</td>
                         <td>@vehicle.Model</td>
                         <td>@vehicle.Type</td>
