@@ -2,5 +2,68 @@
 @model RentnRoll.Pages.BookingModel
 @{
 }
+<header class="bg-dark text-white py-3">
+	<div class="container text-center">
+		<h2 class="display-4">Booking</h2>
+	</div>
+</header>
+<body>
+    <p class="text-center">Your order</p>
+	@if (Model.Cart.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Year</th>
+                    <th>Price per day</th>
+                    <th> </th>
+                </tr>
+            </thead>
 
-<h1>Booking Page</h1>
+            <tbody>
+                @foreach (var vehicle in Model.Cart)
+                {
+                    <tr>
+                        <td colspan="2" width="300px" height="300px">
+                            <img src="@vehicle.ImageURL" alt="@vehicle.Brand @vehicle.Model" class="img-fluid" />
+                        </td>
+                        <td colspan="2">
+                            <label>Pickup date</label>
+                            <input type="date" class="form-control"/>
+                        </td>
+                        <td colspan="1">
+                            <label>Return date</label>
+                            <input type="date" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@vehicle.Brand</td>
+                        <td>@vehicle.Model</td>
+                        <td>@vehicle.Type</td>
+                        <td>@vehicle.Year</td>
+                        <td>@vehicle.PricePerDay SEK</td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="vehicleId" value="@vehicle.VehicleID" />
+                                <button type="submit" asp-page-handler="RemoveFromCart" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h4>Total: @Model.Cart.Sum(v => v.PricePerDay) SEK/day</h4>
+
+        <form method="post">
+            <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        </form>
+    }
+    else
+    {
+        <p>No vehicles added to your booking yet.</p>
+    }
+</body>
