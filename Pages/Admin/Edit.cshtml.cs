@@ -24,8 +24,6 @@ namespace RentnRoll.Pages.Admin
         {
             Vehicle = await _context.Vehicles.FindAsync(id);
             
-
-
             if (Vehicle == null)
             {
                 return NotFound(); // Om bilen inte finns, visa 404-sida
