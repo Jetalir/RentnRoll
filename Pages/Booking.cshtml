@@ -12,28 +12,45 @@
 
     @if (Model.vehicle != null)
     {
-        <script> 
+        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const pickupDateInput = document.getElementById("PickupDate");
                 const returnDateInput = document.getElementById("ReturnDate");
                 const totalPriceElement = document.getElementById("TotalPrice");
-                const pricePerDay = @Model.vehicle.PricePerDay;
+                const pricePerDay = parseFloat(@Model.vehicle.PricePerDay);
+
+                console.log("Pickup Date Input:", pickupDateInput);
+                console.log("Return Date Input:", returnDateInput);
+                console.log("Total Price Element:", totalPriceElement);
+                console.log("Price Per Day:", pricePerDay);
+
+                const today = new Date().toISOString().split("T")[0];
+                pickupDateInput.setAttribute("min", today);
+                returnDateInput.setAttribute("min", today);
 
                 function updateTotalPrice() {
                     const pickupDate = new Date(pickupDateInput.value);
                     const returnDate = new Date(returnDateInput.value);
 
-                    if (!isNaN(pickupDate) && !isNaN(returnDate) && returnDate > pickupDate) {
-                        const timeDifference = returnDate - pickupDate;
-                        const totalDays = timeDifference / (1000 * 60 * 60 * 24);
-                        const totalPrice = totalDays * pricePerDay;
-                        totalPriceElement.innerText = totalPrice + " SEK for " + totalDays + " Days";
+
+                    if (!isNaN(pickupDate) && !isNaN(returnDate)) {
+                        if (returnDate > pickupDate) {
+                            const timeDifference = returnDate - pickupDate;
+                            const totalDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                            const totalPrice = totalDays * pricePerDay;
+                            totalPriceElement.innerText = totalPrice.toFixed(2) + " SEK for " + totalDays + " Days";
+                        } else {
+                            totalPriceElement.innerText = "0 SEK (Return date must be after pickup date)";
+                        }
                     } else {
                         totalPriceElement.innerText = "0 SEK";
                     }
                 }
+
                 pickupDateInput.addEventListener("change", updateTotalPrice);
                 returnDateInput.addEventListener("change", updateTotalPrice);
+
+                updateTotalPrice(); // Initialize on page load
             });
         </script>
         <form method="post">

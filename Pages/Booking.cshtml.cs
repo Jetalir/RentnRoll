@@ -23,8 +23,10 @@ namespace RentnRoll.Pages
 
         public Booking booking { get; set; } = new();
         public Vehicle vehicle { get; set; }
+        decimal tprice { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+
+		public async Task<IActionResult> OnGetAsync(int id)
         {
             vehicle = await _context.Vehicles.FindAsync(id);
 
@@ -69,8 +71,8 @@ namespace RentnRoll.Pages
 
             _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("BookingSummary", new { id = booking.BookingID});
+			TempData["SuccessMessage"] = "Thank you for choosing Rent & Roll! Your booking has been registred.";
+			return RedirectToPage("BookingSummary", new { id = booking.BookingID});
         }
     }
 }

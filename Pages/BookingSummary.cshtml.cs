@@ -10,7 +10,7 @@ namespace RentnRoll.Pages
     {
 
         private readonly AppDbContext _context;
-        public BookingSummaryModel(AppDbContext context)
+		public BookingSummaryModel(AppDbContext context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace RentnRoll.Pages
         {
             booking = await _context.Bookings.Include(b => b.Vehicle).FirstOrDefaultAsync(b => b.BookingID == id);
 
-            if (booking == null)
+			if (booking == null)
             {
                 return NotFound();
             }
