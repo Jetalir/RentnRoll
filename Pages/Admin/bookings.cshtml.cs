@@ -12,9 +12,6 @@ namespace RentnRoll.Pages.Admin
         private readonly AppDbContext _context;
         public List<Booking> Booking { get; set; }
 
-        public List<Vehicle> Vehicles { get; set; }
-        public IdentityUser User { get; set; }
-
         public bookingsModel(AppDbContext context)
         {
             _context = context;

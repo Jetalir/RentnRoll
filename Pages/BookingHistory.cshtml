@@ -1,0 +1,55 @@
+﻿@page
+@model RentnRoll.Pages.BookingHistoryModel
+@{
+}
+<header class="bg-dark text-white py-3">
+	<div class="container text-center">
+		<h2 class="display-4">My bookings</h2>
+	</div>
+</header>
+
+<body>
+	@if (Model.Bookings.Count > 0)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Booking date</th>
+					<th>Brand</th>
+					<th>Model</th>
+					<th>Pickup date</th>
+					<th>Return date</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var booking in Model.Bookings)
+				{
+					<tr>
+						<td>@booking.BookingDate</td>
+						<td>@booking.Vehicle.Brand</td>
+						<td>@booking.Vehicle.Model</td>
+						<td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
+						<td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+						@if (booking.Status == "Canceled")
+						{
+							<td style="color:red">@booking.Status</td>
+						}
+						else if (booking.Status == "Confirmed")
+						{
+							<td style="color:green">@booking.Status</td>
+						}
+						else
+						{
+							<td>@booking.Status</td>
+						}
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>No bookings found.</p>
+	}
+</body>
