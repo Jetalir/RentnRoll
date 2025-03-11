@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (var booking in Model.Booking)
+                    @foreach (var booking in Model.Booking.OrderByDescending(b => b.BookingDate))
 					{
 						<tr>
                             <td>@booking.BookingDate</td>
@@ -51,7 +51,7 @@
                         </td>
 						</tr>
 					}
-                    </tbody>
+                </tbody>
 			</table>
             <button type="submit" class="btn btn-primary">Apply Changes</button>
 		</form>
