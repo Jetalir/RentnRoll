@@ -67,6 +67,13 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>@Model.vehicle.Brand</td>
+                        <td>@Model.vehicle.Model</td>
+                        <td>@Model.vehicle.Type</td>
+                        <td>@Model.vehicle.Year</td>
+                        <td>@Model.vehicle.PricePerDay SEK</td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <img src="@Model.vehicle.ImageURL" alt="@Model.vehicle.Brand @Model.vehicle.Model" class="img-fluid" />
                         </td>
@@ -78,13 +85,6 @@
                             <label>Return date</label>
                             <input type="date" id="ReturnDate" class="form-control" name="ReturnDate" required />
                         </td>
-                    </tr>
-                    <tr>
-                        <td>@Model.vehicle.Brand</td>
-                        <td>@Model.vehicle.Model</td>
-                        <td>@Model.vehicle.Type</td>
-                        <td>@Model.vehicle.Year</td>
-                        <td>@Model.vehicle.PricePerDay SEK</td>
                     </tr>
                 </tbody>
             </table>
