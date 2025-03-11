@@ -1,0 +1,58 @@
+﻿@page
+@model RentnRoll.Pages.Admin.bookingsModel
+@{
+    ViewData["Title"] = "Bookings status";
+}
+<header class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <h2>Admin Page</h2>
+    </div>
+</header>
+
+<body class="bg-light">
+    <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>BookingID</th>
+                        <th>User</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Status</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model.Booking.OrderByDescending(b => b.BookingDate))
+					{
+						<tr>
+                            <td>@booking.BookingDate</td>
+                            <td>@booking.User.Email</td>
+                            <td>@booking.Vehicle.Brand</td>
+                            <td>@booking.Vehicle.Model</td>
+                            @if(booking.Status == "Canceled")
+							{
+								<td style="color:red">@booking.Status</td>
+							}
+							else if(booking.Status == "Confirmed")
+							{
+								<td style="color:green">@booking.Status</td>
+							}
+							else
+							{
+								<td>@booking.Status</td>
+							}
+                        <td>
+                            <select name="status_@booking.BookingID" class="form-select">
+                                <option value="" disabled selected>Change status</option>
+                                <option value="Canceled">Cancel</option>
+                                <option value="Confirmed">Confirm</option>
+                            </select>
+                        </td>
+						</tr>
+					}
+                </tbody>
+			</table>
+            <button type="submit" class="btn btn-primary">Apply Changes</button>
+		</form>
+</body>

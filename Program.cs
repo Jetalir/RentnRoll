@@ -30,6 +30,12 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 RoleSeeder.SeedRolesAsync(roleManager).Wait();
+using (var scopeTwo = app.Services.CreateScope())
+{
+    var loadData = scopeTwo.ServiceProvider;
+    await RoleSeeder.SeedVehiclesAsync(loadData);
+    await RoleSeeder.SeedUsersAsync(loadData);
+}
 
 
 

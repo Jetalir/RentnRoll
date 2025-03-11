@@ -1,0 +1,63 @@
+﻿@page
+@model RentnRoll.Pages.BookingSummaryModel
+@{
+	ViewData["Title"] = "Booking sumary";
+}
+
+<header class="bg-dark text-white py-3">
+	<div class="container text-center">
+		<h2 class="display-4">Booking Summary</h2>
+	</div>
+</header>
+
+<body>
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success text-center">
+			@TempData["SuccessMessage"]
+		</div>
+	}
+	@if (Model.booking != null)
+	{
+
+		<label>
+			Please ensure you bring your driver's license and a valid form of payment when picking up your vehicle.
+			Your rental includes basic insurance coverage, and the vehicle will be provided with a full tank of fuel.
+			We look forward to seeing you on @Model.booking.PickupDate.ToString("yyyy-MM-dd") and wish you a safe and enjoyable journey!
+		</label>
+		<br />
+		<label>Please ensure you arrive on time for pickup. If you need to modify your booking, contact us at least 24 hours in advance.</label>
+		<br />
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Brand</th>
+					<th>Model</th>
+					<th>Type</th>
+					<th>Year</th>
+					<th>Pickup date</th>
+					<th>Return date</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>@Model.booking.Vehicle.Brand</td>
+					<td>@Model.booking.Vehicle.Model</td>
+					<td>@Model.booking.Vehicle.Type</td>
+					<td>@Model.booking.Vehicle.Year</td>
+					<td>@Model.booking.PickupDate.ToString("yyyy-MM-dd")</td>
+					<td>@Model.booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+					<td>@Model.booking.Status</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Total: @Model.booking.TotalCost SEK</h4>
+	}
+	else
+	{
+		<p>No vehicles added to your booking yet.</p>
+	}
+</body>

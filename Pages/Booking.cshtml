@@ -1,6 +1,102 @@
-﻿@page
+﻿@page "{id:int}"
 @model RentnRoll.Pages.BookingModel
 @{
+    ViewData["Title"] = "Booking";
 }
+<header class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <h2 class="display-4">Booking</h2>
+    </div>
+</header>
+<body>
+    <p class="text-center">Your order</p>
 
-<h1>Booking Page</h1>
+    @if (Model.vehicle != null)
+    {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const pickupDateInput = document.getElementById("PickupDate");
+                const returnDateInput = document.getElementById("ReturnDate");
+                const totalPriceElement = document.getElementById("TotalPrice");
+                const pricePerDay = parseFloat(@Model.vehicle.PricePerDay);
+
+                console.log("Pickup Date Input:", pickupDateInput);
+                console.log("Return Date Input:", returnDateInput);
+                console.log("Total Price Element:", totalPriceElement);
+                console.log("Price Per Day:", pricePerDay);
+
+                const today = new Date().toISOString().split("T")[0];
+                pickupDateInput.setAttribute("min", today);
+                returnDateInput.setAttribute("min", today);
+
+                function updateTotalPrice() {
+                    const pickupDate = new Date(pickupDateInput.value);
+                    const returnDate = new Date(returnDateInput.value);
+
+
+                    if (!isNaN(pickupDate) && !isNaN(returnDate)) {
+                        if (returnDate > pickupDate) {
+                            const timeDifference = returnDate - pickupDate;
+                            const totalDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                            const totalPrice = totalDays * pricePerDay;
+                            totalPriceElement.innerText = totalPrice.toFixed(2) + " SEK for " + totalDays + " Days";
+                        } else {
+                            totalPriceElement.innerText = "0 SEK (Return date must be after pickup date)";
+                        }
+                    } else {
+                        totalPriceElement.innerText = "0 SEK";
+                    }
+                }
+
+                pickupDateInput.addEventListener("change", updateTotalPrice);
+                returnDateInput.addEventListener("change", updateTotalPrice);
+
+                updateTotalPrice(); // Initialize on page load
+            });
+        </script>
+        <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th>Year</th>
+                        <th>Price per day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <img src="@Model.vehicle.ImageURL" alt="@Model.vehicle.Brand @Model.vehicle.Model" class="img-fluid" />
+                        </td>
+                        <td colspan="2">
+                            <label>Pickup date</label>
+                            <input type="date" id="PickupDate" class="form-control" name="PickupDate" required />
+                        </td>
+                        <td>
+                            <label>Return date</label>
+                            <input type="date" id="ReturnDate" class="form-control" name="ReturnDate" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Model.vehicle.Brand</td>
+                        <td>@Model.vehicle.Model</td>
+                        <td>@Model.vehicle.Type</td>
+                        <td>@Model.vehicle.Year</td>
+                        <td>@Model.vehicle.PricePerDay SEK</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Total: <span id="TotalPrice">0 SEK</span></h4>
+
+            <input type="hidden" name="id" value="@Model.vehicle.VehicleID" />
+            <button type="submit" asp-route-id="@Model.booking.BookingID" class="btn btn-primary">Confirm Booking</button>
+        </form>
+    }
+    else
+    {
+        <p>No vehicles added to your booking yet.</p>
+    }
+</body>

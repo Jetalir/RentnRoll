@@ -1,73 +1,94 @@
 ﻿@page
 @model RentnRoll.Pages.Admin.IndexModel
 @{
+    ViewData["Title"] = "Add vehicle";
 }
+<header class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <h2>Admin Page</h2>
+    </div>
+</header>
+<body class="bg-light">
+    <div class="container mt-4 p-4 border rounded bg-white">
+        <h3 class="text-center mb-4">Add a new vehicle</h3>
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Brand:</label>
+                <select asp-for="createVehicleDTO.Brand" class="form-select" required>
+                    <option value="" disabled selected>Select a brand</option>
+                    <option value="Volvo">Volvo</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Ford">Ford</option>
+                    <option value="Chevrolet">Chevrolet</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mercedes-Benz">Mercedes-Benz</option>
+                    <option value="Audi">Audi</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                    <option value="Nissan">Nissan</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Kia">Kia</option>
+                    <option value="Tesla">Tesla</option>
+                    <option value="Porsche">Porsche</option>
+                    <option value="Lexus">Lexus</option>
+                    <option value="Subaru">Subaru</option>
+                    <option value="Mazda">Mazda</option>
+                    <option value="Jeep">Jeep</option>
+                    <option value="Land Rover">Land Rover</option>
+                    <option value="Cadillac">Cadillac</option>
+                </select>
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label">Model:</label>
+                <input type="text" asp-for="createVehicleDTO.Model" class="form-control" required />
+            </div>
 
-<h2>Add a new vehicle</h2>
+            <div class="mb-3">
+                <label class="form-label">Type:</label>
+                <select asp-for="createVehicleDTO.Type" class="form-select" required>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Crossover">Crossover</option>
+                    <option value="Combi">Combi</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Pickup">Pickup</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Cabriolet">Cabriolet</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Van">Van</option>
+                    <option value="Micro">Micro</option>
+                </select>
+            </div>
 
-<form method="post">
-    <label>Brand:</label>
-@*     <input type="text" asp-for="createVehicleDTO.Brand" required /> *@ 
-    <select asp-for="createVehicleDTO.Brand" required>
-        <option value="Volvo">Volvo</option>
-        <option value="Toyota">Toyota</option>
-        <option value="Honda">Honda</option>
-        <option value="Ford">Ford</option>
-        <option value="Chevrolet">Chevrolet</option>
-        <option value="BMW">BMW</option>
-        <option value="Mercedes-Benz">Mercedes-Benz</option>
-        <option value="Audi">Audi</option>
-        <option value="Volkswagen">Volkswagen</option>
-        <option value="Nissan">Nissan</option>
-        <option value="Hyundai">Hyundai</option>
-        <option value="Kia">Kia</option>
-        <option value="Tesla">Tesla</option>
-        <option value="Porsche">Porsche</option>
-        <option value="Lexus">Lexus</option>
-        <option value="Subaru">Subaru</option>
-        <option value="Mazda">Mazda</option>
-        <option value="Jeep">Jeep</option>
-        <option value="Land Rover">Land Rover</option>
-        <option value="Cadillac">Cadillac</option>
-    </select>
+            <div class="mb-3">
+                <label class="form-label">Transmission:</label>
+                <select asp-for="createVehicleDTO.TransmissionType" class="form-select" required>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
+                </select>
+            </div>
 
-    <label>Model:</label>
-    <input type="text" asp-for="createVehicleDTO.Model" required />
+            <div class="mb-3">
+                <label class="form-label">Year:</label>
+                <input type="number" asp-for="createVehicleDTO.Year" class="form-control" required />
+            </div>
 
-    <label>Type:</label>
-    @* <input type="text" asp-for="createVehicleDTO.Type" required /> *@
-    <select asp-for="createVehicleDTO.Type" required>
-        <option value="Sedan">Sedan</option>
-        <option value="Crossover">Crossover</option>
-        <option value="Combi">Combi</option>
-        <option value="SUV">SUV</option>
-        <option value="Pickup">Pickup</option>
-        <option value="Hatchback">Hatchback</option>
-        <option value="Cabriolet">Cabriolet</option>
-        <option value="Sport">Sport</option>
-        <option value="Van">Van</option>
-        <option value="Micro">Micro</option>
-    </select>
+            <div class="mb-3">
+                <label class="form-label">Price per day:</label>
+                <input type="number" asp-for="createVehicleDTO.PricePerDay" class="form-control" required />
+            </div>
 
-    <label>Transmission:</label>
-    @*     <input type="text" asp-for="createVehicleDTO.TransmissionType" required />  *@    
-    <select asp-for="createVehicleDTO.TransmissionType" required>
-        <option value="Manual">Manual</option>
-        <option value="Automatic">Automatic</option>
-    </select>
+            <div class="mb-3">
+                <label class="form-label">Description:</label>
+                <textarea asp-for="createVehicleDTO.Description" class="form-control" rows="3"></textarea>
+            </div>
 
-    <label>Year:</label>
-    <input type="number" asp-for="createVehicleDTO.Year" required />
+            <div class="mb-3">
+                <label class="form-label">Bild URL:</label>
+                <input type="text" asp-for="createVehicleDTO.ImageURL" class="form-control" />
+            </div>
 
-    <label>Price per day:</label>
-    <input type="number" asp-for="createVehicleDTO.PricePerDay" required />
-
-    <label>Description:</label>
-    <textarea asp-for="createVehicleDTO.Description"></textarea>
-
-    <label>Bild URL:</label>
-    <input type="text" asp-for="createVehicleDTO.ImageURL" />
-
-    <button type="submit">Confirm vehicle</button>
-</form>
+            <button type="submit" class="btn btn-primary w-100">Confirm vehicle</button>
+        </form>
+    </div>
+</body>
