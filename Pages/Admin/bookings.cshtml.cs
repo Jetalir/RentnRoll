@@ -33,10 +33,24 @@ namespace RentnRoll.Pages.Admin
         }
         public void OnPost()
         {
-            foreach (var booking in Booking)
+            foreach (var booking in _context.Bookings.ToList())
             {
-                
+                string formKey = $"status_{booking.BookingID}";
+
+                if (Request.Form.ContainsKey(formKey))
+                {
+                    string newStatus = Request.Form[formKey];
+
+                    // Kolla om statusen har ändrats
+                    if (!string.IsNullOrEmpty(newStatus) && newStatus != booking.Status)
+                    {
+                        booking.Status = newStatus;
+                        _context.Update(booking);
+                    }
+                }
             }
+
+            _context.SaveChanges();
         }
     }
 }
