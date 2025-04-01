@@ -63,16 +63,29 @@
         <div class="row">
             @foreach (var vehicle in Model.Vehicle)
             {
-                <article class="col-md-6">
+                var nextAvailable = Model.NextAvailableDate.ContainsKey(vehicle.VehicleID)
+                ? Model.NextAvailableDate[vehicle.VehicleID]
+                : DateTime.Now;
+
+                var isAvailableNow = nextAvailable <= DateTime.Now;
+
+                <article class="col-md-6 @(isAvailableNow ? "" : "unavailable")">
                     <div class="card mb-4 shadow-sm">
                         <img src="@vehicle.ImageURL" class="card-img-top" alt="@vehicle.Brand @vehicle.Model">
                         <div class="card-body">
-                            <h5 class="card-title">@vehicle.Brand @vehicle.Model</h5>
+                            @if (!isAvailableNow)
+                            {
+                                <h5 class="card-title">@vehicle.Brand @vehicle.Model <span class="text-danger"> Earliest available from: @nextAvailable.ToString("yyyy-MM-dd")</span></h5>
+                            }
+                            else
+							{
+                                <h5 class="card-title">@vehicle.Brand @vehicle.Model</h5>
+                            }
                             <p class="card-text">
                                 <strong>Type:</strong> @vehicle.Type <br>
                                 <strong>Year:</strong> @vehicle.Year <br>
                                 <strong>Transmission:</strong> @vehicle.TransmissionType <br>
-                                <strong>Price/day:</strong> @vehicle.PricePerDay SEK
+                                <strong>Price/day:</strong> @vehicle.PricePerDay SEK <br>
                             </p>
                             <div class="d-flex justify-content-between">
                                 <a asp-page="/Booking" asp-route-id="@vehicle.VehicleID" class="btn btn-success w-100 mx-2">Book</a>
