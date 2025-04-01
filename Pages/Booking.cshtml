@@ -10,50 +10,74 @@
 </header>
 <body>
     <p class="text-center">Your order</p>
+    <script>
+        const bookedDates = @Html.Raw(Json.Serialize(Model.BookedDates));
+        console.log("Booked Dates:", bookedDates);
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pickupDateInput = document.getElementById("PickupDate");
+            const returnDateInput = document.getElementById("ReturnDate");
+            const totalPriceElement = document.getElementById("TotalPrice");
+            const pricePerDay = parseFloat(@Model.vehicle.PricePerDay);
 
-    @if (Model.vehicle != null)
-    {
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const pickupDateInput = document.getElementById("PickupDate");
-                const returnDateInput = document.getElementById("ReturnDate");
-                const totalPriceElement = document.getElementById("TotalPrice");
-                const pricePerDay = parseFloat(@Model.vehicle.PricePerDay);
+            const today = new Date().toISOString().split("T")[0];
+            pickupDateInput.setAttribute("min", today);
+            returnDateInput.setAttribute("min", today);
 
-                console.log("Pickup Date Input:", pickupDateInput);
-                console.log("Return Date Input:", returnDateInput);
-                console.log("Total Price Element:", totalPriceElement);
-                console.log("Price Per Day:", pricePerDay);
+            function isDateRangeBooked(pickup, returnDate) {
+                return bookedDates.some(booking => {
+                    const bookedFrom = new Date(booking.pickupDate);
+                    const bookedTo = new Date(booking.returnDate);
 
-                const today = new Date().toISOString().split("T")[0];
-                pickupDateInput.setAttribute("min", today);
-                returnDateInput.setAttribute("min", today);
+                    return (pickup < bookedTo && returnDate > bookedFrom);
+                });
+            }
 
-                function updateTotalPrice() {
-                    const pickupDate = new Date(pickupDateInput.value);
-                    const returnDate = new Date(returnDateInput.value);
+            function updateTotalPrice() {
+                const pickupDate = new Date(pickupDateInput.value);
+                const returnDate = new Date(returnDateInput.value);
 
+                if (!isNaN(pickupDate) && !isNaN(returnDate)) {
+                    if (returnDate > pickupDate) {
+                        const timeDifference = returnDate - pickupDate;
+                        const totalDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                        const totalPrice = totalDays * pricePerDay;
 
-                    if (!isNaN(pickupDate) && !isNaN(returnDate)) {
-                        if (returnDate > pickupDate) {
-                            const timeDifference = returnDate - pickupDate;
-                            const totalDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-                            const totalPrice = totalDays * pricePerDay;
-                            totalPriceElement.innerText = totalPrice.toFixed(2) + " SEK for " + totalDays + " Days";
+                        if (isDateRangeBooked(pickupDate, returnDate)) {
+                            totalPriceElement.innerText = "Not available for selected dates!";
+                            totalPriceElement.style.color = "red";
                         } else {
-                            totalPriceElement.innerText = "0 SEK (Return date must be after pickup date)";
+                            totalPriceElement.innerText = totalPrice.toFixed(2) + " SEK for " + totalDays + " Days";
+                            totalPriceElement.style.color = "black";
                         }
                     } else {
-                        totalPriceElement.innerText = "0 SEK";
+                        totalPriceElement.innerText = "0 SEK (Return date must be after pickup date)";
                     }
+                } else {
+                    totalPriceElement.innerText = "0 SEK";
                 }
+            }
 
-                pickupDateInput.addEventListener("change", updateTotalPrice);
-                returnDateInput.addEventListener("change", updateTotalPrice);
+            pickupDateInput.addEventListener("change", updateTotalPrice);
+            returnDateInput.addEventListener("change", updateTotalPrice);
 
-                updateTotalPrice(); // Initialize on page load
+            updateTotalPrice(); // Initialize on page load
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function (e) {
+                const pickupDate = new Date(pickupDateInput.value);
+                const returnDate = new Date(returnDateInput.value);
+
+                if (isDateRangeBooked(pickupDate, returnDate)) {
+                    e.preventDefault(); // Förhindrar att formuläret skickas
+                    alert("This vehicle is not available for the selected dates. Please choose different dates.");
+                }
             });
-        </script>
+        });
+    </script>
+    @if (Model.vehicle != null)
+    {
         <form method="post">
             <table class="table">
                 <thead>

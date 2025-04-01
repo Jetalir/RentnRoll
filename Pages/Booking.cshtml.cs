@@ -24,9 +24,9 @@ namespace RentnRoll.Pages
         public Booking booking { get; set; } = new();
         public Vehicle vehicle { get; set; }
         decimal tprice { get; set; }
+        public List<BookingDatesDTO> BookedDates { get; set; } = new();
 
-
-		public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             vehicle = await _context.Vehicles.FindAsync(id);
 
@@ -34,8 +34,21 @@ namespace RentnRoll.Pages
             {
                 return NotFound();
             }
+
+            // Hämta bokade datum och lagra det i DTO:n
+            BookedDates = await _context.Bookings
+                .Where(b => b.VehicleID == id && b.Status == "Confirmed")
+                .Select(b => new BookingDatesDTO
+                {
+                    PickupDate = b.PickupDate.ToString("yyyy-MM-dd"),
+                    ReturnDate = b.ReturnDate.ToString("yyyy-MM-dd")
+                })
+                .ToListAsync();
+
             return Page();
         }
+
+
 
         public async Task<IActionResult> OnPostAsync(int id, DateTime PickupDate, DateTime ReturnDate)
         {

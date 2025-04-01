@@ -30,6 +30,7 @@ namespace RentnRoll.Pages
         [BindProperty(SupportsGet = true)]
         public string FilterType { get; set; } = ""; // Default no filter
 
+        public Dictionary<int, DateTime> NextAvailableDate { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -55,11 +56,64 @@ namespace RentnRoll.Pages
                 _ => SortOrder == "asc" ? vehicles.OrderBy(v => v.PricePerDay) : vehicles.OrderByDescending(v => v.PricePerDay),
             };
 
-
-
             Vehicle = await vehicles.ToListAsync();
+
+            // Hämta bokningar för alla bilar
+            var bookings = await _context.Bookings
+                .Where(b => b.Status == "Confirmed")
+                .OrderBy(b => b.PickupDate)
+                .ToListAsync();
+
+            foreach (var vehicle in Vehicle)
+            {
+                var vehicleBookings = bookings
+                    .Where(b => b.VehicleID == vehicle.VehicleID)
+                    .ToList();
+
+                if (vehicleBookings.Any())
+                {
+                    var currentDate = DateTime.Now.Date;
+
+                    // Hitta lediga perioder innan nästa bokning
+                    var firstBooking = vehicleBookings.First();
+                    if (currentDate < firstBooking.PickupDate)
+                    {
+                        NextAvailableDate[vehicle.VehicleID] = currentDate; // Ledig före första bokningen
+                        continue;
+                    }
+
+                    // Om bilen är mitt i en bokning just nu
+                    var activeBooking = vehicleBookings
+                        .FirstOrDefault(b => currentDate >= b.PickupDate && currentDate <= b.ReturnDate);
+
+                    if (activeBooking != null)
+                    {
+                        NextAvailableDate[vehicle.VehicleID] = activeBooking.ReturnDate.AddDays(1); // Tillgänglig dagen efter bokningen
+                    }
+                    else
+                    {
+                        // Bilen är ledig mellan bokningar
+                        var nextBooking = vehicleBookings
+                            .FirstOrDefault(b => b.PickupDate > currentDate);
+
+                        if (nextBooking != null)
+                        {
+                            NextAvailableDate[vehicle.VehicleID] = nextBooking.PickupDate.AddDays(-1); // Ledig innan nästa bokning
+                        }
+                        else
+                        {
+                            NextAvailableDate[vehicle.VehicleID] = currentDate; // Helt ledig
+                        }
+                    }
+                }
+                else
+                {
+                    NextAvailableDate[vehicle.VehicleID] = DateTime.Now; // Ingen bokning alls, ledig nu
+                }
+            }
+
             return Page();
-		}
+        }
 
         public void OnPost()
         {

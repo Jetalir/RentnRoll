@@ -17,6 +17,15 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+article.unavailable {
+    opacity: 0.7;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+.unavailable {
+    opacity: 0.5; /* Gör bilen halvtransparent */
+}
+
+.unavailable .btn {
+    pointer-events: auto; /* Tillåter klick på knapparna */
 }
